@@ -21,7 +21,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(SCRIPT_DIR, "data")
 
 API_URLS = {
-    "FMTQIK": "https://openapi.twse.com.tw/v1/exchangeReport/FMTQIK",
+    "FMTQIK": "https://www.twse.com.tw/exchangeReport/FMTQIK?response=open_data",
     "BFI82U": "https://openapi.twse.com.tw/v1/exchangeReport/BFI82U",
     "bond_yield": "https://www.tpex.org.tw/openapi/v1/tpex_bond_benchmark_yield",
 }
