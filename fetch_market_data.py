@@ -181,17 +181,26 @@ def main():
     # ── 3. 三大法人 ──
     print_header("三、三大法人買賣超金額")
     try:
-        investors = get_data("BFI82U", local_mode)
+        all_investors = get_data("BFI82U", local_mode)
 
-        print(f"\n  {'法人':<28} {'買進':>16} {'賣出':>16} {'買賣超':>16}")
-        print(f"  {'─' * 78}")
+        # 依日期篩選（若資料有日期欄位）
+        if all_investors and "日期" in all_investors[0]:
+            investors = [r for r in all_investors if r.get("日期", "") == roc_date]
+        else:
+            investors = all_investors
 
-        for row in investors:
-            name = row.get("單位名稱", "N/A")
-            buy = format_amount(row.get("買進金額", "0"))
-            sell = format_amount(row.get("賣出金額", "0"))
-            diff = format_amount(row.get("買賣差額", "0"))
-            print(f"  {name:<26} {buy:>16} {sell:>16} {diff:>16}")
+        if not investors:
+            print(f"\n  找不到 {roc_date} 的三大法人資料")
+        else:
+            print(f"\n  {'法人':<28} {'買進':>16} {'賣出':>16} {'買賣超':>16}")
+            print(f"  {'─' * 78}")
+
+            for row in investors:
+                name = row.get("單位名稱", "N/A")
+                buy = format_amount(row.get("買進金額", "0"))
+                sell = format_amount(row.get("賣出金額", "0"))
+                diff = format_amount(row.get("買賣差額", "0"))
+                print(f"  {name:<26} {buy:>16} {sell:>16} {diff:>16}")
 
     except Exception as e:
         print(f"  取得失敗: {e}")
