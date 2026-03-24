@@ -128,20 +128,20 @@ ax.annotate(
 
 # ── Key event annotations ──────────────────────────────────────────────────────
 events = [
-    ("2022-03", "Fed 首次升息", 0.3),
-    ("2023-07", "升息頂點\n(5.25–5.5%)", 0.5),
-    ("2024-09", "Fed 首次降息", 0.3),
+    ("2022-03", "Fed 首次升息", 0.72, "left"),   # 低於圖例，避免遮擋
+    ("2023-07", "升息頂點\n(5.25–5.5%)", 0.97, "center"),
+    ("2024-09", "Fed 首次降息", 0.97, "center"),
 ]
-for date_str, label, y_offset in events:
+for date_str, label, y_frac, ha in events:
     xd = pd.Timestamp(date_str)
     if xd < u3.index[0] or xd > u3.index[-1]:
         continue
     ax.axvline(xd, color="#444c56", linewidth=1, linestyle="--", zorder=2)
-    # y=0.97 in axes fraction (top), x in data coords → use get_xaxis_transform
+    # y in axes fraction, x in data coords → use get_xaxis_transform
     ax.text(
-        xd, 0.97,
+        xd, y_frac,
         label, color="#555555", fontproperties=fp(), fontsize=8,
-        ha="center", va="top",
+        ha=ha, va="top",
         transform=ax.get_xaxis_transform(),
     )
 
