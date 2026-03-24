@@ -99,7 +99,7 @@ FILL_C  = "#d0e4f7"
 fig, ax = plt.subplots(figsize=(14, 6))
 fig.patch.set_facecolor(BG)
 ax.set_facecolor(BG)
-fig.subplots_adjust(top=0.82, bottom=0.10, left=0.07, right=0.97)
+fig.subplots_adjust(top=0.77, bottom=0.10, left=0.07, right=0.97)
 
 # Fill between
 ax.fill_between(u6.index, u6.values, u3.values, alpha=0.15, color=FILL_C, zorder=1)
@@ -128,7 +128,7 @@ ax.annotate(
 
 # ── Key event annotations ──────────────────────────────────────────────────────
 events = [
-    ("2022-03", "Fed 首次升息", 0.72, "left"),   # 低於圖例，避免遮擋
+    ("2022-03", "Fed 首次升息", 0.97, "center"),
     ("2023-07", "升息頂點\n(5.25–5.5%)", 0.97, "center"),
     ("2024-09", "Fed 首次降息", 0.97, "center"),
 ]
@@ -184,11 +184,12 @@ leg_patches = [
     mpatches.Patch(color=U3_C, label="U-3  官方失業率（完全失業）"),
     mpatches.Patch(color=U6_C, label="U-6  廣義失業率（含邊際附著 + 非自願兼職）"),
 ]
-legend = ax.legend(
+legend = fig.legend(
     handles=leg_patches,
-    loc="upper left",
+    loc="lower left",
+    bbox_to_anchor=(0.07, 0.785),   # 緊貼 axes 上方，避免進入圖表區域
     frameon=True,
-    framealpha=0.8,
+    framealpha=0.9,
     facecolor="#f5f5f5",
     edgecolor="#cccccc",
     labelcolor="#111111",
