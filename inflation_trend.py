@@ -147,7 +147,7 @@ for date_str, label, y_frac, ha in events:
     xd = pd.Timestamp(date_str)
     if xd < cpi.index[0] or xd > cpi.index[-1]:
         continue
-    ax.axvline(xd, ymax=0.72, color="#444c56", linewidth=1, linestyle="--", zorder=2)
+    ax.axvline(xd, ymax=0.90, color="#444c56", linewidth=1, linestyle="--", zorder=2)
     ax.text(
         xd, y_frac, label,
         color="#555555", fontproperties=fp(), fontsize=8,
