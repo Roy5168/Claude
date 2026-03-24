@@ -99,7 +99,7 @@ FILL_C  = "#d0e4f7"
 fig, ax = plt.subplots(figsize=(14, 6))
 fig.patch.set_facecolor(BG)
 ax.set_facecolor(BG)
-fig.subplots_adjust(top=0.77, bottom=0.10, left=0.07, right=0.97)
+fig.subplots_adjust(top=0.77, bottom=0.13, left=0.07, right=0.97)
 
 # Fill between
 ax.fill_between(u6.index, u6.values, u3.values, alpha=0.15, color=FILL_C, zorder=1)
@@ -174,9 +174,9 @@ fig.text(
     va="top", fontsize=15, color="#111111", fontproperties=fp(bold=True),
 )
 fig.text(
-    0.06, 0.89,
+    0.06, 0.04,
     "資料來源：FRED – Federal Reserve Bank of St. Louis  |  季節調整 (SA)  |  單位：%",
-    va="top", fontsize=9, color="#666666", fontproperties=fp(),
+    va="bottom", fontsize=9, color="#666666", fontproperties=fp(),
 )
 
 # ── Legend ────────────────────────────────────────────────────────────────────
