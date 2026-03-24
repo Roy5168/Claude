@@ -90,11 +90,11 @@ u3 = u3[(u3.index >= START) & (u3.index <= END)]
 u6 = u6[(u6.index >= START) & (u6.index <= END)]
 
 # ── Plot ──────────────────────────────────────────────────────────────────────
-BG      = "#0d1117"
-GRID_C  = "#21262d"
-U3_C    = "#58a6ff"   # blue
-U6_C    = "#f78166"   # orange-red
-FILL_C  = "#30363d"
+BG      = "#ffffff"
+GRID_C  = "#e0e0e0"
+U3_C    = "#1a6fc4"   # blue
+U6_C    = "#d94f3d"   # red
+FILL_C  = "#d0e4f7"
 
 fig, ax = plt.subplots(figsize=(14, 6))
 fig.patch.set_facecolor(BG)
@@ -140,7 +140,7 @@ for date_str, label, y_offset in events:
     # y=0.97 in axes fraction (top), x in data coords → use get_xaxis_transform
     ax.text(
         xd, 0.97,
-        label, color="#8b949e", fontproperties=fp(), fontsize=8,
+        label, color="#555555", fontproperties=fp(), fontsize=8,
         ha="center", va="top",
         transform=ax.get_xaxis_transform(),
     )
@@ -149,8 +149,9 @@ for date_str, label, y_offset in events:
 # (none in this window)
 
 # ── Axes styling ──────────────────────────────────────────────────────────────
-ax.spines[["top", "right", "left", "bottom"]].set_visible(False)
-ax.tick_params(colors="#8b949e", labelsize=9)
+ax.spines[["top", "right"]].set_visible(False)
+ax.spines[["left", "bottom"]].set_color("#cccccc")
+ax.tick_params(colors="#333333", labelsize=9)
 ax.yaxis.set_major_formatter(mticker.FormatStrFormatter("%.1f%%"))
 ax.set_xlim(u3.index[0], u3.index[-1] + pd.DateOffset(months=1))
 ax.set_ylim(
@@ -170,12 +171,12 @@ for lbl in ax.get_yticklabels():
 fig.text(
     0.06, 0.96,
     "美國失業率趨勢  U-3 vs U-6  (2022年1月 – 2026年2月)",
-    va="top", fontsize=15, color="white", fontproperties=fp(bold=True),
+    va="top", fontsize=15, color="#111111", fontproperties=fp(bold=True),
 )
 fig.text(
     0.06, 0.89,
     "資料來源：FRED – Federal Reserve Bank of St. Louis  |  季節調整 (SA)  |  單位：%",
-    va="top", fontsize=9, color="#8b949e", fontproperties=fp(),
+    va="top", fontsize=9, color="#666666", fontproperties=fp(),
 )
 
 # ── Legend ────────────────────────────────────────────────────────────────────
@@ -187,10 +188,10 @@ legend = ax.legend(
     handles=leg_patches,
     loc="upper left",
     frameon=True,
-    framealpha=0.25,
-    facecolor="#161b22",
-    edgecolor="#30363d",
-    labelcolor="white",
+    framealpha=0.8,
+    facecolor="#f5f5f5",
+    edgecolor="#cccccc",
+    labelcolor="#111111",
     fontsize=9,
     prop=fp(),
 )
