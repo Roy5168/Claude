@@ -136,7 +136,7 @@ for date_str, label, y_frac, ha in events:
     xd = pd.Timestamp(date_str)
     if xd < u3.index[0] or xd > u3.index[-1]:
         continue
-    ax.axvline(xd, color="#444c56", linewidth=1, linestyle="--", zorder=2)
+    ax.axvline(xd, ymax=0.90, color="#444c56", linewidth=1, linestyle="--", zorder=2)
     # y in axes fraction, x in data coords → use get_xaxis_transform
     ax.text(
         xd, y_frac,
