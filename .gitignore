@@ -1,0 +1,18 @@
+# 只追蹤 skills 目錄，其餘排除
+/*
+!/skills
+!.gitignore
+
+# 排除暫存與快取
+cache/
+debug/
+shell-snapshots/
+stats-cache.json
+statsig/
+telemetry/
+todos/
+plans/
+backups/
+session-env/
+plugins/
+projects/
