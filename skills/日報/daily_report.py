@@ -12,9 +12,15 @@ import os
 import json
 import csv
 import io
+import ssl
 import tempfile
 import urllib.request
 from datetime import date, datetime, timedelta
+
+# macOS Python 不使用系統憑證庫，需要略過 SSL 驗證（本機工具腳本使用）
+SSL_CTX = ssl.create_default_context()
+SSL_CTX.check_hostname = False
+SSL_CTX.verify_mode = ssl.CERT_NONE
 
 try:
     import xlrd
@@ -56,7 +62,7 @@ def resolve_target_date(arg=None):
 
 def fetch_bytes(url):
     req = urllib.request.Request(url, headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=20) as r:
+    with urllib.request.urlopen(req, timeout=20, context=SSL_CTX) as r:
         return r.read()
 
 
