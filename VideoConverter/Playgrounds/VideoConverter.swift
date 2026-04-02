@@ -14,7 +14,7 @@ actor VideoConverter {
             switch self {
             case .highest: return AVAssetExportPresetHEVCHighestQuality
             case .fhd:     return AVAssetExportPresetHEVC1920x1080
-            case .hd:      return AVAssetExportPresetHEVC1920x1080  // 再用 composition 縮
+            case .hd:      return AVAssetExportPresetHEVC1920x1080
             }
         }
     }
@@ -30,6 +30,8 @@ actor VideoConverter {
             }
         }
     }
+
+    // MARK: - 單檔轉換
 
     func convert(
         inputURL: URL,
@@ -49,9 +51,9 @@ actor VideoConverter {
             throw ConversionError.exportSessionFailed
         }
 
-        session.outputURL                    = outputURL
-        session.outputFileType               = .mp4
-        session.shouldOptimizeForNetworkUse  = true
+        session.outputURL                   = outputURL
+        session.outputFileType              = .mp4
+        session.shouldOptimizeForNetworkUse = true
 
         if quality == .hd {
             if let comp = try? await makeScaleComposition(asset: asset, width: 1280, height: 720) {
@@ -59,7 +61,6 @@ actor VideoConverter {
             }
         }
 
-        // 進度輪詢
         let poll = Task {
             while !Task.isCancelled {
                 onProgress(session.progress)
@@ -78,37 +79,64 @@ actor VideoConverter {
         }
     }
 
+    // MARK: - 批次轉換（依序處理，每檔完成後回呼）
+
+    /// - Parameters:
+    ///   - items:       要轉換的檔案 URL 陣列
+    ///   - quality:     統一套用的畫質
+    ///   - onItemProgress: (index, 0~1) 單檔進度
+    ///   - onItemDone:     (index, Result) 單檔完成
+    func convertBatch(
+        items: [URL],
+        quality: Quality,
+        onItemProgress: @Sendable @escaping (Int, Float) -> Void,
+        onItemDone:     @Sendable @escaping (Int, Result<URL, Error>) -> Void
+    ) async {
+        for (index, url) in items.enumerated() {
+            do {
+                let out = try await convert(inputURL: url, quality: quality) { p in
+                    onItemProgress(index, p)
+                }
+                onItemDone(index, .success(out))
+            } catch {
+                onItemDone(index, .failure(error))
+            }
+        }
+    }
+
     // MARK: - Helpers
 
     private func buildOutputURL(for input: URL) -> URL {
-        let docs  = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let name  = input.deletingPathExtension().lastPathComponent
+        let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let name = input.deletingPathExtension().lastPathComponent
         return docs.appendingPathComponent("\(name)_h265.mp4")
     }
 
     private func makeScaleComposition(
         asset: AVURLAsset, width: CGFloat, height: CGFloat
     ) async throws -> AVVideoComposition {
-        let tracks   = try await asset.loadTracks(withMediaType: .video)
-        let track    = tracks[0]
-        let natSize  = try await track.load(.naturalSize)
-        let xform    = try await track.load(.preferredTransform)
-        let rotated  = natSize.applying(xform)
-        let actual   = CGSize(width: abs(rotated.width), height: abs(rotated.height))
-        let scale    = min(width / actual.width, height / actual.height)
-        let render   = CGSize(width: (actual.width * scale).rounded(),
-                              height: (actual.height * scale).rounded())
+        let tracks  = try await asset.loadTracks(withMediaType: .video)
+        let track   = tracks[0]
+        let natSize = try await track.load(.naturalSize)
+        let xform   = try await track.load(.preferredTransform)
+        let rotated = natSize.applying(xform)
+        let actual  = CGSize(width: abs(rotated.width), height: abs(rotated.height))
+        let scale   = min(width / actual.width, height / actual.height)
+        let render  = CGSize(width: (actual.width * scale).rounded(),
+                             height: (actual.height * scale).rounded())
 
-        let instr    = AVMutableVideoCompositionInstruction()
+        let instr       = AVMutableVideoCompositionInstruction()
         instr.timeRange = CMTimeRange(start: .zero, duration: try await asset.load(.duration))
-        let layer    = AVMutableVideoCompositionLayerInstruction(assetTrack: track)
-        layer.setTransform(CGAffineTransform(scaleX: scale, y: scale).concatenating(xform), at: .zero)
+        let layer       = AVMutableVideoCompositionLayerInstruction(assetTrack: track)
+        layer.setTransform(
+            CGAffineTransform(scaleX: scale, y: scale).concatenating(xform), at: .zero
+        )
         instr.layerInstructions = [layer]
 
-        let comp            = AVMutableVideoComposition()
-        comp.instructions   = [instr]
-        comp.frameDuration  = CMTime(value: 1, timescale: 30)
-        comp.renderSize     = render
+        let comp           = AVMutableVideoComposition()
+        comp.instructions  = [instr]
+        comp.frameDuration = CMTime(value: 1, timescale: 30)
+        comp.renderSize    = render
         return comp
     }
 }
