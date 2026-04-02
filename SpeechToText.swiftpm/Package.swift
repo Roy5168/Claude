@@ -7,9 +7,6 @@ let package = Package(
         .iOS(.v16),
         .macOS(.v13)
     ],
-    products: [
-        .library(name: "SpeechToText", targets: ["App"])
-    ],
     dependencies: [
         .package(
             url: "https://github.com/argmaxinc/WhisperKit",
@@ -17,7 +14,7 @@ let package = Package(
         )
     ],
     targets: [
-        .target(
+        .executableTarget(
             name: "App",
             dependencies: [
                 .product(name: "WhisperKit", package: "WhisperKit")
