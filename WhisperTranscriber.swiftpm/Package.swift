@@ -6,25 +6,6 @@ let package = Package(
     platforms: [
         .iOS(.v17)
     ],
-    products: [
-        .iOSApplication(
-            name: "WhisperTranscriber",
-            targets: ["WhisperTranscriber"],
-            bundleIdentifier: "com.whisper.transcriber",
-            displayVersion: "1.0",
-            bundleVersion: "1",
-            appIcon: .placeholder(icon: .microphone),
-            accentColor: .presetColor(.blue),
-            supportedDeviceFamilies: [
-                .pad,
-                .phone
-            ],
-            orientation: .all,
-            capabilities: [
-                .outgoingNetworkConnections()
-            ]
-        )
-    ],
     dependencies: [
         .package(
             url: "https://github.com/argmaxinc/WhisperKit.git",
