@@ -1,0 +1,313 @@
+{
+  "report_date": "2026-04-12",
+  "route": "TPE (桃園) → NRT (東京成田)",
+  "month": "2026年6月",
+  "currency": "TWD",
+  "note": "以下價格為網路公開資訊彙整，實際票價以各航空公司官網即時查詢為準",
+
+  "surcharge_info": {
+    "effective_date": "2026-04-07",
+    "fuel_surcharge_per_segment_usd": 45,
+    "fuel_surcharge_roundtrip_usd": 90,
+    "fuel_surcharge_roundtrip_twd_approx": 2880,
+    "old_fuel_surcharge_per_segment_usd": 17.5,
+    "increase_pct": "157%",
+    "booking_service_fee": {
+      "china_airlines": {"usd": 28, "effective": "2026-03-17"},
+      "eva_air": {"usd": 28, "effective": "2026-03-01"},
+      "starlux": {"usd": 30, "effective": "2026-04-01"}
+    },
+    "airport_taxes_approx_twd": 1200
+  },
+
+  "airlines": {
+    "CI": {
+      "name": "中華航空 China Airlines",
+      "flights_tpe_nrt": [
+        {
+          "flight": "CI100",
+          "departure": "08:50",
+          "arrival": "13:15",
+          "duration": "3h 25m",
+          "type": "早去",
+          "frequency": "每日",
+          "aircraft": "A350-900 / A330-300"
+        },
+        {
+          "flight": "CI104",
+          "departure": "12:15",
+          "arrival": "16:35",
+          "duration": "3h 20m",
+          "type": "午去",
+          "frequency": "每日",
+          "aircraft": "A350-900"
+        },
+        {
+          "flight": "CI108",
+          "departure": "14:35",
+          "arrival": "19:00",
+          "duration": "3h 25m",
+          "type": "午後去",
+          "frequency": "每日",
+          "aircraft": "A330-300"
+        }
+      ],
+      "flights_nrt_tpe": [
+        {
+          "flight": "CI101",
+          "departure": "14:20",
+          "arrival": "17:05",
+          "duration": "3h 45m",
+          "type": "晚回",
+          "note": "對應CI100早去"
+        },
+        {
+          "flight": "CI105",
+          "departure": "17:40",
+          "arrival": "20:30",
+          "duration": "3h 50m",
+          "type": "晚回",
+          "note": "對應CI104午去"
+        },
+        {
+          "flight": "CI109",
+          "departure": "20:00",
+          "arrival": "22:50",
+          "duration": "3h 50m",
+          "type": "最晚回",
+          "note": "對應CI108午後去"
+        }
+      ],
+      "t_class_info": {
+        "booking_code": "T",
+        "fare_family": "精省 Discount (經濟艙最低票價產品)",
+        "baggage": "1件 x 23公斤",
+        "mileage_accumulation": "25%~50% (依航線)",
+        "seat_selection": "付費選位",
+        "change_policy": "限制較多，改期需收手續費",
+        "cancel_policy": "不可退票或退票手續費較高",
+        "note": "T艙為經濟艙中票價最低的艙等之一，適合確定行程不需變更的旅客"
+      },
+      "pricing_june_2026": {
+        "t_class_roundtrip_estimate_twd": {
+          "low": 10500,
+          "high": 14500,
+          "note": "T艙含稅來回估算（基礎票價+燃油+稅金+訂位費），非促銷時段"
+        },
+        "promotional_base_fare_twd": 8840,
+        "promotional_note": "2026年初促銷價，日本航線含稅來回 TWD 8,840 起",
+        "spring_promo": {
+          "discount": "81折起",
+          "period": "出發日 2026/4/8~6/26",
+          "purchase_window": "2026/4/8~4/19 購票",
+          "base_fare_twd": 13930,
+          "note": "春季促銷桃園-成田來回 TWD 13,930（含稅）"
+        }
+      }
+    },
+
+    "BR": {
+      "name": "長榮航空 EVA Air",
+      "flights_tpe_nrt": [
+        {
+          "flight": "BR198",
+          "departure": "08:50",
+          "arrival": "12:55",
+          "duration": "3h 05m",
+          "type": "早去",
+          "frequency": "每日",
+          "aircraft": "787-10 / 787-9"
+        },
+        {
+          "flight": "BR196",
+          "departure": "10:00",
+          "arrival": "14:10",
+          "duration": "3h 10m",
+          "type": "早去(偏中午)",
+          "frequency": "每日",
+          "aircraft": "787-10"
+        },
+        {
+          "flight": "BR192",
+          "departure": "16:45",
+          "arrival": "20:50",
+          "duration": "3h 05m",
+          "type": "晚去",
+          "frequency": "每日",
+          "aircraft": "A330-300"
+        }
+      ],
+      "flights_nrt_tpe": [
+        {
+          "flight": "BR199",
+          "departure": "14:00",
+          "arrival": "17:10",
+          "duration": "4h 10m",
+          "type": "午後回",
+          "note": "對應BR198早去"
+        },
+        {
+          "flight": "BR197",
+          "departure": "15:20",
+          "arrival": "18:20",
+          "duration": "4h 00m",
+          "type": "晚回",
+          "note": "對應BR196"
+        },
+        {
+          "flight": "BR193",
+          "departure": "21:50",
+          "arrival": "00:50+1",
+          "duration": "4h 00m",
+          "type": "最晚回",
+          "note": "對應BR192晚去"
+        }
+      ],
+      "pricing_june_2026": {
+        "economy_roundtrip_estimate_twd": {
+          "low": 11000,
+          "high": 16000,
+          "note": "一般經濟艙含稅來回（早去晚回/晚去晚回）"
+        },
+        "promotional_base_fare_twd": 8948,
+        "promotional_note": "長榮年終促銷 73折起，東京成田來回含稅 TWD 8,948 起"
+      }
+    },
+
+    "JX": {
+      "name": "星宇航空 Starlux Airlines",
+      "flights_tpe_nrt": [
+        {
+          "flight": "JX800",
+          "departure": "08:30",
+          "arrival": "12:30",
+          "duration": "3h 00m",
+          "type": "早去",
+          "frequency": "每日",
+          "aircraft": "A330-900neo / A350-900"
+        },
+        {
+          "flight": "JX802",
+          "departure": "10:40",
+          "arrival": "15:00",
+          "duration": "3h 20m",
+          "type": "早去(偏中午)",
+          "frequency": "每日",
+          "aircraft": "A330-900neo"
+        },
+        {
+          "flight": "JX806",
+          "departure": "17:00",
+          "arrival": "21:10",
+          "duration": "3h 10m",
+          "type": "晚去",
+          "frequency": "每日",
+          "aircraft": "A321neo"
+        }
+      ],
+      "flights_nrt_tpe": [
+        {
+          "flight": "JX801",
+          "departure": "13:30",
+          "arrival": "16:40",
+          "duration": "4h 10m",
+          "type": "午後回",
+          "note": "對應JX800早去"
+        },
+        {
+          "flight": "JX803",
+          "departure": "16:00",
+          "arrival": "19:10",
+          "duration": "4h 10m",
+          "type": "晚回",
+          "note": "對應JX802"
+        },
+        {
+          "flight": "JX807",
+          "departure": "22:10",
+          "arrival": "01:20+1",
+          "duration": "4h 10m",
+          "type": "最晚回",
+          "note": "對應JX806晚去"
+        }
+      ],
+      "pricing_june_2026": {
+        "economy_roundtrip_estimate_twd": {
+          "low": 9200,
+          "high": 15000,
+          "note": "經濟艙含稅來回"
+        },
+        "promotional_base_fare_twd": 7609,
+        "promotional_note": "星宇馬年促銷 88折，東京成田來回含稅 TWD 7,609 起",
+        "expedia_reference_twd": 9258,
+        "recent_observed_twd": 12403,
+        "recent_note": "近期查詢多日可見含稅來回 TWD 12,403 的價格"
+      }
+    }
+  },
+
+  "recommended_combinations": [
+    {
+      "rank": 1,
+      "title": "最低價推薦 - 星宇航空 早去晚回",
+      "outbound": "JX800 TPE 08:30 → NRT 12:30",
+      "inbound": "JX803 NRT 16:00 → TPE 19:10",
+      "type": "早去晚回",
+      "estimated_price_twd": "9,200 ~ 12,400",
+      "reason": "星宇促銷價最低 TWD 7,609 起，近期常態價約 TWD 12,403，為三家中價格最具競爭力。A330-900neo 新機型，服務品質佳。"
+    },
+    {
+      "rank": 2,
+      "title": "華航 T艙 早去晚回（指定需求）",
+      "outbound": "CI100 TPE 08:50 → NRT 13:15",
+      "inbound": "CI109 NRT 20:00 → TPE 22:50",
+      "type": "早去最晚回",
+      "estimated_price_twd": "10,500 ~ 14,500",
+      "reason": "T艙為精省型(Discount)票價，票價較低但限制多（行李1件23kg、改退限制嚴格）。適合行程確定的旅客。CI100早班到達最早，CI109最晚班回程可玩最久。"
+    },
+    {
+      "rank": 3,
+      "title": "華航 T艙 晚去晚回",
+      "outbound": "CI108 TPE 14:35 → NRT 19:00",
+      "inbound": "CI109 NRT 20:00 → TPE 22:50",
+      "type": "晚去晚回",
+      "estimated_price_twd": "10,500 ~ 14,500",
+      "reason": "同為T艙低價，下午出發晚上到達，適合不想早起的旅客。但注意回程CI109隔天才回，所以去程和回程不可同日。"
+    },
+    {
+      "rank": 4,
+      "title": "長榮航空 早去晚回",
+      "outbound": "BR198 TPE 08:50 → NRT 12:55",
+      "inbound": "BR197 NRT 15:20 → TPE 18:20",
+      "type": "早去晚回",
+      "estimated_price_twd": "11,000 ~ 16,000",
+      "reason": "長榮五星級服務，787-10新機型。73折促銷起價TWD 8,948但名額有限。常態價格偏高但服務穩定。"
+    },
+    {
+      "rank": 5,
+      "title": "長榮航空 晚去晚回",
+      "outbound": "BR192 TPE 16:45 → NRT 20:50",
+      "inbound": "BR193 NRT 21:50 → TPE 00:50+1",
+      "type": "晚去最晚回",
+      "estimated_price_twd": "11,000 ~ 16,000",
+      "reason": "最晚出發+最晚回程組合，最大化在日本的時間。"
+    },
+    {
+      "rank": 6,
+      "title": "星宇航空 晚去晚回",
+      "outbound": "JX806 TPE 17:00 → NRT 21:10",
+      "inbound": "JX807 NRT 22:10 → TPE 01:20+1",
+      "type": "晚去最晚回",
+      "estimated_price_twd": "9,200 ~ 15,000",
+      "reason": "星宇價格最有競爭力的晚班組合。"
+    }
+  ],
+
+  "final_recommendation": {
+    "best_value": "星宇航空 JX800/JX803 早去晚回",
+    "best_value_price": "TWD 9,200 ~ 12,400",
+    "best_for_ci_t_class": "華航 CI100/CI109 早去最晚回",
+    "best_for_ci_t_class_price": "TWD 10,500 ~ 14,500",
+    "summary": "綜合評比，星宇航空的價格在三家中最低，服務品質與新機型不遜色。若指定華航T艙，建議選CI100早去+CI109最晚回的組合，可在東京停留最長時間。6月為日本梅雨季，非旺季票價相對較低，建議提前30天以上購票以獲得最佳價格。"
+  }
+}
