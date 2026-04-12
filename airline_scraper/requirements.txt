@@ -1,0 +1,7 @@
+# 核心依賴
+httpx>=0.27.0              # 非同步 HTTP 客戶端（用於 Amadeus API）
+playwright>=1.48.0         # 瀏覽器自動化（用於網頁爬蟲）
+
+# 選用依賴
+# amadeus>=9.0.0           # Amadeus 官方 SDK（替代方案）
+# aiohttp>=3.9.0           # 替代 HTTP 客戶端
