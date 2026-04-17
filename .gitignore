@@ -1,3 +1,8 @@
+# 環境變數（含 API key，絕對不能 commit）
+.env
+.env.*
+!.env.example
+
 # Packaging artifacts
 *.zip
 
