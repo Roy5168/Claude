@@ -349,6 +349,12 @@ def main():
     target, prev = resolve_target_date(arg)
 
     print(f"目標日期：{target.strftime('%Y/%m/%d')}　前一交易日：{prev.strftime('%Y/%m/%d')}")
+
+    # 排程旗標：週末跳過寄信，平日（含國定假日）一律寄信。
+    # 國定假日由前面的 fetch/回溯邏輯處理；本旗標只看「今天」是不是工作日。
+    send_flag = "是" if datetime.now().weekday() < 5 else "否（週末）"
+    print(f"今日寄信：{send_flag}")
+
     print("擷取資料中...", end='', flush=True)
 
     bond_t     = fetch_bond_yield(target)
