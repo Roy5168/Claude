@@ -175,10 +175,11 @@ def fetch_inst(d):
 # ── Step 5：金融業隔夜拆款利率 ───────────────────────────
 
 def fetch_cbc_rate(target, prev):
+    rates = {}
+    # Source 1: OpenData CSV（更新較慢）
     try:
         raw = fetch_bytes("https://www.cbc.gov.tw/public/data/OpenData/WebF2.csv")
         text = raw.decode('big5', errors='replace')
-        rates = {}
         for line in text.splitlines():
             parts = line.strip().split(',')
             if len(parts) >= 2:
@@ -186,10 +187,30 @@ def fetch_cbc_rate(target, prev):
                     rates[parts[0].strip()] = float(parts[1].strip())
                 except ValueError:
                     pass
-        fmt = lambda d: f"{d.year}/{d.month}/{d.day}"
-        return rates.get(fmt(target)), rates.get(fmt(prev))
     except Exception:
-        return None, None
+        pass
+
+    # Source 2: HTML 網頁（即時更新）
+    import re
+    try:
+        html = fetch_bytes("https://www.cbc.gov.tw/tw/lp-641-1.html").decode('utf-8', errors='replace')
+        pairs = re.findall(
+            r'資料日期\)"><span>(\d{4}/\d{2}/\d{2})</span></td>\s*'
+            r'<td[^>]*data-th="利率"><span>([\d.]+)</span>',
+            html
+        )
+        for d_str, r_str in pairs:
+            try:
+                y, m, dd = d_str.split('/')
+                key = f"{int(y)}/{int(m)}/{int(dd)}"
+                rates.setdefault(key, float(r_str))
+            except ValueError:
+                pass
+    except Exception:
+        pass
+
+    fmt = lambda d: f"{d.year}/{d.month}/{d.day}"
+    return rates.get(fmt(target)), rates.get(fmt(prev))
 
 
 # ── Step 6：2-10天期附買回利率 ───────────────────────────
@@ -332,12 +353,23 @@ def main():
 
     bond_t     = fetch_bond_yield(target)
     taiex_t    = fetch_taiex(target)
-    taiex_p    = fetch_taiex(prev)
     inst_t     = fetch_inst(target)
-    inst_p     = fetch_inst(prev)
-    cbc_t, cbc_p = fetch_cbc_rate(target, prev)
     repo_t_rate, repo_t_amt = fetch_repo(target)
-    repo_p_rate, repo_p_amt = fetch_repo(prev)
+
+    # 自動偵測前一個有效交易日（最多回溯 7 日，避開連假）
+    taiex_p = inst_p = None
+    repo_p_rate = repo_p_amt = None
+    for _ in range(7):
+        taiex_p_try = fetch_taiex(prev)
+        inst_p_try  = fetch_inst(prev)
+        if taiex_p_try and inst_p_try:
+            taiex_p = taiex_p_try
+            inst_p  = inst_p_try
+            repo_p_rate, repo_p_amt = fetch_repo(prev)
+            break
+        prev = prev_weekday(prev)
+
+    cbc_t, cbc_p = fetch_cbc_rate(target, prev)
 
     print(" 完成")
 
