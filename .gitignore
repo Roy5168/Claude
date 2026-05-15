@@ -3,6 +3,11 @@
 !/skills
 !.gitignore
 
+# 個人 skills（不推送到 GitHub）
+/skills/央行定存單/
+/skills/外資淨匯入/
+/skills/日報/
+
 # 排除暫存與快取
 cache/
 debug/
